@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import BookDetails from './BookDetail';
+import WelcomePage from './welcomePage';
 
 function Home() {
    const [bookID, setBookID] = useState('');
@@ -55,7 +56,7 @@ function Home() {
         <thead>
           <tr>
             <th>Book ID</th>
-            <th>File</th>
+            <th>Book</th>
             <th>Preview</th>
             <th>Summarize</th>
             <th>Option</th>
@@ -65,8 +66,8 @@ function Home() {
           {books.map((book) => (
             <tr key={book.bookID}>
               <td>{book.bookID}</td>
-              <td>{book.filePath.split('/').pop()}</td>
-              <td><a href={`http://localhost:5000${book.filePath}`} target="_blank" rel="noopener noreferrer">Show 👁</a></td>
+              <td>{book.filePath.split('/').pop()} </td>
+              <td><a href={`http://localhost:5000${book.filePath}`} target="_blank" rel="noopener noreferrer">view 👁</a></td>
               <td><button onClick={() => navigate(`/book/${book.bookID}`)}>Summarize</button></td>
               <td><button onClick={() => handleDelete(book.bookID)}>Delete</button></td>
             </tr>
@@ -86,8 +87,8 @@ function Home() {
 
       <style>
         {`
-        body { font-family: Arial, sans-serif; background: #f5f5f5; text-align: center; }
-        .container { max-width: 900px; margin: auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        body { font-family: Arial, sans-serif; background:rgb(226, 220, 220); text-align: center; }
+        .container { max-width: 900px; height:100vh; margin: auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
         .upload-section input { margin: 10px; padding: 8px; border: 1px solid #ccc; }
         .upload-section button { background: #3498db; color: white; border: none; padding: 8px 15px; cursor: pointer; }
         .upload-section button:hover { background: #2980b9; }
@@ -96,6 +97,7 @@ function Home() {
         .file-list th { background: #3498db; color: white; }
         .book-details { margin-top: 20px; padding: 10px; border: 1px solid #ddd; background: white; border-radius: 5px; }
         .book-details h2 { color: #3498db; }
+         button{ padding:9px 5px; border-radius: 5px; color:rgb(251, 245, 241); background: #2980b9; border:none;}
         `}
       </style>
     </div>
@@ -106,7 +108,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+      <Route path='/' element={<WelcomePage />}/>
+        <Route path="/summury" element={<Home />} />
         <Route path="/book/:bookID" element={<BookDetails />} />
       </Routes>
     </Router>
